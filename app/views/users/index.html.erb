@@ -1,8 +1,48 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Users</h1>
-
-<table>
+<%#= javascript_include_tag 'jquery.dataTables.js' %>
+<%#= stylesheet_link_tag 'jquery.dataTables.min'%>
+<%#= stylesheet_link_tag 'jquery.dataTables_themeroller'%>
+<script>
+$(document).ready(function() {
+    $("#example").dataTable({
+        "ServerSide": true,
+        "bDestroy": true,
+        "sAjaxSource": "/users/index2/1",
+        //"bProcessing": true,
+        "sAjaxDataProp": "aData",
+        "sPaginationType": "full_numbers",
+        "aoColumns": [
+            {"mDataProp": 'name'}, //mData 表示发请求时候本列的列明，返回的数据中相同下标名字的数据会填充到这一列
+            {"mDataProp": 'age'},
+            {"mDataProp": 'home_phone'},
+            {"mDataProp": 'home_address'},
+            {"sDefaultContent": ''}, // sDefaultContent 如果这一列不需要填充数据用这个属性，值可以不写，起占位作用
+            {"sDefaultContent": '', "sClass": "action"}//sClass 表示给本列加class
+        ],
+        "bAutoWidth": true, //自适应宽度
+        "sPaginationType": "full_numbers",
+        "oLanguage": {
+            "sProcessing": "正在加载中......",
+            "sLengthMenu": "每页显示 _MENU_ 条记录",
+            "sZeroRecords": "正在加载中......",
+            "sEmptyTable": "表中无数据存在！",
+            "sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录",
+            "sInfoEmpty": "显示0到0条记录",
+            "sInfoFiltered": "数据表中共为 _MAX_ 条记录",
+            "sSearch": "搜索",
+            "oPaginate": {
+                "sFirst": "首页",
+                "sPrevious": "上一页",
+                "sNext": "下一页",
+                "sLast": "末页"
+            }
+        }
+    })
+});
+</script>
+<table id="example">
   <thead>
     <tr>
       <th>Name</th>
@@ -15,18 +55,9 @@
   </thead>
 
   <tbody>
-    <% @users.each do |user| %>
-      <tr>
-        <td><%= user.name %></td>
-        <td><%= user.age %></td>
-        <td><%= user.sex %></td>
-        <td><%= user.home_phone %></td>
-        <td><%= user.home_address %></td>
-        <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
+    <tr>
+      <td colspan="9"></td>
+    </tr>
   </tbody>
 </table>
 

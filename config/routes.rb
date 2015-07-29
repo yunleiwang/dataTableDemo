@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :users
+  resources :users 
+  get 'users/index2/:id'=>'users#index2'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

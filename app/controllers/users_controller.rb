@@ -1,3 +1,4 @@
+#coding:utf-8
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
@@ -5,6 +6,24 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     @users = User.all
+
+  end
+
+   def index2
+    per_page = params["iDisplayLength"].to_i
+    iDisplayStart = params["iDisplayStart"].to_i
+    total = User.all.length
+    if iDisplayStart!=0
+      page = (total/(iDisplayStart*1.0)).ceil
+    else
+      page = 1
+    end
+    @users = User.paginate(:page => page,:per_page => per_page)
+    total_records = @users.length
+    sEcho = params["sEcho"].to_i
+    hash = {'aData'=> @users,'iTotalRecords'=>total,'iTotalDisplayRecords'=>total,"sEcho"=> sEcho}
+    p hash.to_json
+    render :json => hash.to_json,:template => false
   end
 
   # GET /users/1
