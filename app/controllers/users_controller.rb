@@ -6,6 +6,20 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     @users = User.all
+=begin
+   
+    (1..12).each do |i|
+      User.create(
+          :name=>'****',
+          :age=>i+30,
+          :sex=>'F',
+          :home_phone=>'*********',
+          :home_address=>'***********'
+          )
+    end
+
+=end
+
 
   end
 
@@ -18,10 +32,10 @@ class UsersController < ApplicationController
     else
       page = 1
     end
-    @users = User.paginate(:page => page,:per_page => per_page)
+    @users = User.paginate(:page => page,:per_page => per_page).collect{|user|[user.name,user.age,user.sex,user.home_phone,user.home_address]}
     total_records = @users.length
     sEcho = params["sEcho"].to_i
-    hash = {'aData'=> @users,'iTotalRecords'=>total,'iTotalDisplayRecords'=>total,"sEcho"=> sEcho}
+    hash = {'aaData'=> @users,'iTotalRecords'=>total,'iTotalDisplayRecords'=>total,"sEcho"=> sEcho}
     p hash.to_json
     render :json => hash.to_json,:template => false
   end

@@ -1,18 +1,24 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Users</h1>
+<%#= javascript_include_tag 'jquery.js' %>
 <%#= javascript_include_tag 'jquery.dataTables.js' %>
+<%#= javascript_include_tag 'jquery.dataTables.min.js' %>
 <%#= stylesheet_link_tag 'jquery.dataTables.min'%>
 <%#= stylesheet_link_tag 'jquery.dataTables_themeroller'%>
 <script>
 $(document).ready(function() {
+  
     $("#example").dataTable({
-        "ServerSide": true,
-        "bDestroy": true,
+      "sPaginationType": "full_numbers",
+        "bServerSide": true,
+        "bDestroy": false ,
         "sAjaxSource": "/users/index2/1",
-        //"bProcessing": true,
-        "sAjaxDataProp": "aData",
-        "sPaginationType": "full_numbers",
+        "bProcessing": false,
+        /*"sAjaxDataProp": "aData",*/
+        
+        "bDeferRender":false,
+        /*
         "aoColumns": [
             {"mDataProp": 'name'}, //mData 表示发请求时候本列的列明，返回的数据中相同下标名字的数据会填充到这一列
             {"mDataProp": 'age'},
@@ -20,7 +26,7 @@ $(document).ready(function() {
             {"mDataProp": 'home_address'},
             {"sDefaultContent": ''}, // sDefaultContent 如果这一列不需要填充数据用这个属性，值可以不写，起占位作用
             {"sDefaultContent": '', "sClass": "action"}//sClass 表示给本列加class
-        ],
+        ],*/
         "bAutoWidth": true, //自适应宽度
         "sPaginationType": "full_numbers",
         "oLanguage": {
